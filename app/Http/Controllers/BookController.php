@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
 {
@@ -12,7 +13,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $url = env("URL_API");
+
+        $response = Http::get($url . "/libros");
+        $data = $response->json();
+
     }
 
     /**
@@ -28,7 +33,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $url = env("URL_API");
+
+        $response = Http::post($url . "/libros", [
+            'languaje' => $request->language,
+            'title' => $request->language,
+            'genre' => $request->language,
+            'editorial' => $request->language,
+            'file' => $request->language,
+        ]);
+
+        $data = $response->json();
+
     }
 
     /**
@@ -52,7 +68,8 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $url = env("URL_API");
+
     }
 
     /**
@@ -60,6 +77,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $url = env("URL_API");
     }
 }
