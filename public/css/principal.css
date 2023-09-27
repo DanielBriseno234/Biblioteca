@@ -1,0 +1,163 @@
+/*
+header.masthead {
+    padding-top: 10.5rem;
+    padding-bottom: 6rem;
+    text-align: center;
+    color: #fff;
+    background-image: url("https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+  }
+  header.masthead .masthead-subheading {
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: 1.5rem;
+    margin-bottom: 25px;
+    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+  header.masthead .masthead-heading {
+    font-size: 3.25rem;
+    font-weight: 700;
+    line-height: 3.25rem;
+    margin-bottom: 2rem;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+  @media (min-width: 768px) {
+    header.masthead {
+      padding-top: 17rem;
+      padding-bottom: 12.5rem;
+    }
+    header.masthead .masthead-subheading {
+      font-size: 2.25rem;
+      font-style: italic;
+      line-height: 2.25rem;
+      margin-bottom: 2rem;
+    }
+    header.masthead .masthead-heading {
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 4.5rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+.btn-danger{
+    background-color: #7b1fa2 !important;
+}
+*/
+
+.jb-principal{
+    padding-top: 55vh;
+    height: 81vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    background-image: url("/img/home.jpg");
+}
+
+.pelicula-lista{
+  border-radius: 4%;
+  width: 100%;
+  height: 40vh;
+  background-color: beige;
+  z-index: -10 ;
+}
+
+.pelicula-container{
+  width: 27vh;
+  position: relative !important;
+  text-align:center;
+}
+
+.fondo-btn-fav{
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  background: #7b1fa2;
+  opacity: 0.5;
+  bottom: 0px;
+  right: 0px;
+  display: none;
+}
+
+.btn-fav{
+  border: none;
+  background: none;
+  color: white;
+  position: absolute;
+  right: 20px;
+  bottom:10px;
+  display: none;
+}
+
+#reproductor{
+  height: 40vh;
+  width: 80vw;
+  background: white;
+  display: none;
+}
+
+.titulo-lista{
+  text-decoration: none;
+  color: white;
+}
+
+.pelicula-container{
+transition: transform 0.3s ease-out 20ms;
+}
+
+.pelicula-container:hover{
+-webkit-transform: scale(1.1);
+transform: scale(1.1);
+opacity: .8;
+}
+
+@media (max-width: 550px) {
+  .pelicula-container{
+      width: 90%;
+      height: 100%;
+      margin: 0 auto;
+  }
+
+  .pelicula-lista{
+    width: 100%;
+    height: 100%;
+    background-color: beige;
+    z-index: -10 ;
+  }
+
+  .pelicula-container:hover{
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+}
+
+.pelicula-container:hover .btn-fav{
+  display: block;
+  animation: fadein-100 0.75s;
+}
+
+.pelicula-container:hover .fondo-btn-fav{
+  display: block;
+  animation: fadein-50 0.75s;
+  border-radius: 0% 0% 8% 8%;
+}
+
+@keyframes fadein-100 {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadein-50 {
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+}
+
+#fl:hover{
+  color: gray !important;
+}
