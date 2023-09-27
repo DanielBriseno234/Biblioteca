@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ApisControllers\ApiAdministratorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ApiControllers\ApiController;
+use App\Http\Controllers\ApisControllers\ApiBooksController;
+use App\Http\Controllers\ApisControllers\ApiStudentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,6 @@ use App\Http\Controllers\ApiControllers\ApiController;
 //     return $request->user();
 // });
 
-Route::resource("libros", ApiController::class);
+Route::resource("libros", ApiBooksController::class);
+Route::resource("administradores", ApiAdministratorsController::class);
+Route::resource("alumnos", ApiStudentsController::class);

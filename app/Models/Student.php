@@ -14,4 +14,12 @@ class Student extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'enrollment',
+        'name',
+        'paternalSurname',
+        'maternalSurname',
+        'user_id',
+    ];
 }

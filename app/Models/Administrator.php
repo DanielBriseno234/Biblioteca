@@ -14,4 +14,11 @@ class Administrator extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'name',
+        'paternalSurname',
+        'maternalSurname',
+        'user_id',
+    ];
 }
