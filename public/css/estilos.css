@@ -1,6 +1,6 @@
 .color-navegacion{
     /* background: linear-gradient(60deg,#ab47bc,#7b1fa2); */
-    background-color: #9c27b0;
+    background-image: linear-gradient(rgb(134, 193, 208), rgb(66, 179, 124));
     /*background: linear-gradient(to right top, #1f1658, #4f2a7a, #81409b, #b556bb,#ed6dd8);*/
 }
 
@@ -9,16 +9,26 @@
     padding: 10px;
 }
 
+.card{
+    width: 18rem;
+}
+
+.fullcenter{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
 .enlace{
     border-radius: 10px;
 }
 
 a.enlace:hover{
-    background-color: #7b1fa2;
+    background-color: #1fa283;
 }
 
 .enlace:hover{
-    background-color: #7b1fa2;
+    background-color: #59a8bc;
 }
 
 .elemento-carousel{

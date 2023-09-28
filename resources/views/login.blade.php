@@ -69,7 +69,6 @@
                 <!-- Boton para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar Sesión</button>
                 <!-- Si el usuario no tiene cuenta este espacio lo redireccionara para registrarse -->
-                <p>¿Aún no tienes cuenta? <a href="{{ route('registroadm') }}">Registrate</a></p>
               </div>
             </form>
           </div>

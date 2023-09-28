@@ -16,6 +16,7 @@ class Administrator extends Model
     }
 
     protected $fillable = [
+        'id',
         'name',
         'paternalSurname',
         'maternalSurname',
