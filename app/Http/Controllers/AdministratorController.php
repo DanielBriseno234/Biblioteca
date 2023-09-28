@@ -24,7 +24,7 @@ class AdministratorController extends Controller
         $response = Http::get($url . "/administradores");
         $data = $response->json();
 
-        dd($data);
+        return view("administradores");
     }
 
     /**

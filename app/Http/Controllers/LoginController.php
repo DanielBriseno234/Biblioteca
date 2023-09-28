@@ -10,19 +10,31 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
+    public function index(){
+        if(Auth::check()){
+            return redirect()->route("principal");
+        }else{
+            return view("login");
+        }
+    }
+
+    public function indexRegistro(){
+        return view("registeradmin");
+    }
+
     public function register(Request $request){
         // Validación de datos
-        // request()->validate([
-        //     'name' => 'required',
-        //     'paternalSurname' => 'required',
-        //     'maternalSurname' => 'required',
-        // ],
-        // [
-        //     // Mensajes de validación
-        //     'name.required' => 'Introduzca su Nombre.',
-        //     'paternalSurname.required' => 'Introduzca su apellido paterno.',
-        //     'maternalSurname.required' => 'Introduzca su apellido materno.',
-        // ]);
+        request()->validate([
+            'name' => 'required',
+            'paternalSurname' => 'required',
+            'maternalSurname' => 'required',
+        ],
+        [
+            // Mensajes de validación
+            'name.required' => 'Introduzca su Nombre.',
+            'paternalSurname.required' => 'Introduzca su apellido paterno.',
+            'maternalSurname.required' => 'Introduzca su apellido materno.',
+        ]);
 
         $datosUsuario = [
             'email' => $request->email,
@@ -67,7 +79,6 @@ class LoginController extends Controller
         $credentials = [
             "email" => $request->email,
             "password" => $request->password,
-            //"active" => true
         ];
 
         //Esta parte sirve en el momento en el que el usuario marca que quiere tener la sesion iniciada
