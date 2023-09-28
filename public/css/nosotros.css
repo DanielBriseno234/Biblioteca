@@ -1,0 +1,193 @@
+/* *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2{
+  color: white;
+} */
+/*Cards*/
+/* .container-card{
+width: 100%;
+display: flex;
+max-width: 1100px;
+margin: auto;
+}
+.title-cards{
+width: 100%;
+max-width: 1080px;
+margin: auto;
+padding: 20px;
+margin-top: 20px;
+text-align: center;
+color: #7a7a7a;
+}
+.card{
+width: 100%;
+margin: 20px;
+border-radius: 6px;
+overflow: hidden;
+background:#fff;
+box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+transition: all 400ms ease-out;
+cursor: default;
+}
+.card:hover{
+box-shadow: 5px 5px 20px rgba(250, 246, 246, 0.712);
+transform: translateY(-3%);
+}
+.card img{
+width: 100%;
+height: 210px;
+}
+.card .contenido-card{
+padding: 15px;
+text-align: center;
+}
+.card .contenido-card h3{
+margin-bottom: 15px;
+color: #7a7a7a;
+}
+.card .contenido-card p{
+line-height: 1.8;
+color: #6a6a6a;
+font-size: 14px;
+margin-bottom: 5px;
+}
+.card .contenido-card a{
+display: inline-block;
+padding: 10px;
+margin-top: 10px;
+text-decoration: none;
+color:  #841d96;
+border: 1px solid  #841d96;
+border-radius: 4px;
+transition: all 400ms ease;
+margin-bottom: 5px;
+}
+.card .contenido-card a:hover{
+background:  #841d96;
+color: #fff;
+}
+@media only screen and (min-width:320px) and (max-width:768px){
+.container-card{
+  flex-wrap: wrap;
+}
+.card{
+  margin: 15px;
+}
+} */
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+P{
+  color: black;
+}
+
+h6 , h5{
+  color:black;
+}
+
+.content a{
+  display: inline-block;
+  padding: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  color:  #841d96;
+  border: 1px solid  #841d96;
+  border-radius: 4px;
+  transition: all 400ms ease;
+  margin-bottom: 5px;
+  }
+
+  .content a:hover{
+    background:  #841d96;
+    color: #fff;
+    }
+
+.container{
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.container:after{
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 150%;
+	left: 0;
+	top: 0;
+	background: url("https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg") no-repeat center;
+	background-size: cover;
+	filter: blur(10px);
+	z-index: -1;
+}
+.lbl-menu{
+  background: #234;
+}
+.lbl-menu label{
+  display: inline-block;
+  padding: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+.lbl-menu label:hover{
+  background: #28435d;
+}
+.content{
+  position: relative;
+}
+.content div{
+  position: absolute;
+  line-height: 1.8;
+  transition: all 600ms ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.90);
+  padding: 30px;
+  background: #fff;
+  padding-bottom: 40px;
+}
+#radio1,#radio2,#radio3,#radio4{
+  display: none;
+}
+#radio1:checked ~ .tab1,
+#radio2:checked ~ .tab2,
+#radio3:checked ~ .tab3,
+#radio4:checked ~ .tab4
+{
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+.content div:after{
+  position: absolute;
+  content: "";
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  bottom: 100%;
+  left: 28px;
+}
+.content .tab2:after{
+  left: 122px;
+}
+.content .tab3:after{
+  left: 210px;
+}
+.content .tab4:after{
+  left: 303px;
+}
+
+
