@@ -28,7 +28,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        return view("administradores");
+        return view("registrarAdmin");
     }
 
     /**
@@ -67,7 +67,7 @@ class AdministratorController extends Controller
         if ($data["error"]) {
             return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return view("consultarMarca", compact("administrador"));
+            return view("administradores", compact("administrador"));
         }
     }
 
@@ -80,12 +80,12 @@ class AdministratorController extends Controller
         $response = Http::get($url . '/administradores/' . $id);
 
         $data = $response->json();
-        $administrador = $data["data"];
+        $admin = $data["data"];
 
         if ($data["error"]) {
             return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return view("editarMarca", compact("administrador"));
+            return view("editarAdministrador", compact("admin"));
         }
     }
 
@@ -105,10 +105,12 @@ class AdministratorController extends Controller
 
         $data = $response->json();
 
+        dd($data);
+
         if ($data["error"]) {
-            return redirect('/administrador')->with('error', $data["message"]);
+            return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return redirect('/administrador')->with('success', $data["message"]);
+            return redirect('/administradores')->with('success', $data["message"]);
         }
     }
 
@@ -121,9 +123,9 @@ class AdministratorController extends Controller
         $response = Http::delete($url . '/administradores/' . $id);
         $data = $response->json();
         if ($data["error"]) {
-            return redirect('/administrador')->with('error', $data["message"]);
+            return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return redirect('/administrador')->with('success', $data["message"]);
+            return redirect('/administradores')->with('success', $data["message"]);
         }
     }
 }

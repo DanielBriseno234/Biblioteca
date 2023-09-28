@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -11,7 +13,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view("inicio");
+        if(Auth::check()){
+            $url = env("URL_API");
+            $response = Http::get($url."/libros");
+            $data = $response->json();
+
+            return view("principal", compact("data"));
+        }else{
+            return view("login");
+        }
     }
 
     /**

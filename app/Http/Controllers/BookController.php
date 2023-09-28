@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
 {
@@ -20,7 +22,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("registrarLibro");
     }
 
     /**
@@ -28,7 +30,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $url = env("URL_API");
+
+        $response = Http::post($url .'/libros', [
+            'language' => request('language'),
+            'title' => request('title'),
+            'genre' => request('genre'),
+            'editorial' => request('editorial'),
+            'status' => 0,
+            'file' => 'prueba',
+            'bookCover' => 'prueba'
+        ]);
+
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/')->with('error', $data["message"]);
+        } else {
+            return redirect('/')->with('success', $data["message"]);
+        }
     }
 
     /**
