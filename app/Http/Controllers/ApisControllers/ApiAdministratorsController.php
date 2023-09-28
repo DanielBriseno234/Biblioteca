@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Http\Responses\ApiResponse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class ApiAdministratorsController extends Controller
@@ -20,7 +21,6 @@ class ApiAdministratorsController extends Controller
     {
         try {
             $admin = Administrator::with('user')->get();
-            // $admin = Administrator::find(1)->user;
             return ApiResponse::success("Administradores consultados con exito", 200, $admin);
             // throw new Exception("Error");
         } catch (Exception $e) {
@@ -38,7 +38,7 @@ class ApiAdministratorsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => $request->password
+                "password" => Hash::make($request->password)
             ];
 
             $datosAdmin = [
