@@ -63,7 +63,11 @@ class BookController extends Controller
 
         $data = $response->json();
 
-        dd($data);
+        if ($data["error"]) {
+            return redirect('/')->with('error', $data["message"]);
+        } else {
+            return redirect('/')->with('success', $data["message"]);
+        }
     }
 
     /**
@@ -77,7 +81,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)//Cambie Book por un String para solo recibir el id :)
+    public function update(Request $request, String $id)
     {
         $request->validate(
             [
@@ -85,7 +89,7 @@ class BookController extends Controller
                 'title' => ['required', 'string'],
                 'genre' => ['required', 'string'],
                 'editorial' => ['required', 'string'],
-                'file' => ['required', 'string'],
+           //     'file' => ['required', 'string'],
             ],
         );
 
@@ -94,10 +98,19 @@ class BookController extends Controller
             'title'=>$request->title,
             'genre'=>$request->genre,
             'editorial'=>$request->editorial,
-            'file'=>$request->file
+            'file'=>"prueba",
+            'bookCover' => 'prueba'
             ];
 
-        $response = Http::put($this->url . "/libros".$id, $data);
+        $response = Http::put($this->url . '/libros'.'/'.$id, $data);
+
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/')->with('error', $data["message"]);
+        } else {
+            return redirect('/')->with('success', $data["message"]);
+        }
     }
 
     /**
@@ -105,6 +118,14 @@ class BookController extends Controller
      */
     public function destroy(String $id)
     {
+        $response = Http::delete($this->url . '/libros'.'/'.$id);
 
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/')->with('error', $data["message"]);
+        } else {
+            return redirect('/')->with('success', $data["message"]);
+        }
     }
 }
