@@ -60,7 +60,7 @@
                             <input type="checkbox" class="form-check-input" id="rememberCheck">
                         </span>
                       </div>
-                    
+
                     <label class="form-check-label" name="remember" for="rememberCheck">Mantener la sesion iniciada?</label>
                 </div>
 
@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 @endsection
 

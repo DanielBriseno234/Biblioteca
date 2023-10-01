@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;        //Extension para encriptar la contraseña
 use Illuminate\Support\Facades\Auth;        //Extension para la autenticacio
+use Illuminate\Validation\ValidationException;
 
 class AdministratorController extends Controller
 {
@@ -129,5 +131,77 @@ class AdministratorController extends Controller
         } else {
             return redirect('/administradores')->with('success', $data["message"]);
         }
+    }
+
+    public function register(Request $request){
+        // Validación de datos
+        request()->validate([
+            'name' => 'required',
+            'paternalSurname' => 'required',
+            'maternalSurname' => 'required',
+        ],
+        [
+            // Mensajes de validación
+            'name.required' => 'Introduzca su Nombre.',
+            'paternalSurname.required' => 'Introduzca su apellido paterno.',
+            'maternalSurname.required' => 'Introduzca su apellido materno.',
+        ]);
+
+
+            // Crear un nuevo estudiante
+            $admin = new Administrator();
+            $admin->name = $request->name;
+            $admin->paternalSurname = $request->paternalSurname;
+            $admin->maternalSurname = $request->maternalSurname;
+
+            // Asignar el ID del usuario actual
+
+            $admin->save(); // Guardar el estudiante
+
+            return redirect(route('welcome'));  // Redireccionar a la página principal
+
+    }
+
+    public function login(Request $request){
+        //De igual forma debe de haber una validación de datos
+        request()->validate([
+            'name' => 'required',
+            'paternalSurname' => 'required',
+        ],
+        [
+            //Estos son los mensajes que se mostrarán en caso de no cumplir con las reglas
+            'name.required' =>'Introduzca un correo.',
+            'name.name' => 'Introduzca un correo valido.',
+            'paternalSurname.required' => 'Introduzca su contraseña.',
+            'paternalSurname.min' => 'Debe de contener minimo 8 caracteres.',
+        ]);
+
+
+        //Estas son los datos de inicio de sesion, por ende es el name y la contaseña
+        $credentials = [
+            "name" => $request->name,
+            "paternalSurname" => $request->paternalSurname,
+            //"active" => true
+        ];
+
+        //Esta parte sirve en el momento en el que el usuario marca que quiere tener la sesion iniciada
+        //si la marca se asigna como true, sino pues se mantiene false
+        $remember = ($request->has('remember') ? true : false);
+
+        //Esto sirve para que se haga un intento de inicio de sesión automatico
+        //Si las credenciales estan y se marca la opcion de mantener la sesion
+        //el sistema accede automaticamente
+        if(Auth::attempt($credentials, $remember)){
+            $request->session()->regenerate();      //aqui borra las sesiones anteriores, en caso de haber mantenido una perdida
+
+            //Esto ayuda en dado caso que intente ingresar a cualquier página desde la url
+            return redirect()->intended(route('welcome'));  //Si quiere ingresar a una diferente de la principal lo puede hacer
+                                                            //Pero tiene que iniciar sesión, si no hace esto lo manda por default a la principal
+        }else{ //Si el usuario no tiene las credenciales y no marca la casilla de mantener la sesion, lo redirecciona al login
+            throw ValidationException::withMessages([
+                'paternalSurname' => "El correo o la contraseña son incorrectas"
+            ]);
+        }
+
     }
 }

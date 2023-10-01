@@ -23,7 +23,7 @@ use App\Http\Controllers\UniversityController;
 
 Route::get('/login', [LoginController::class, "index"])->name('login');          //Ruta a la pagina de login
 Route::post('/inicia-sesion', [ LoginController::class, 'login'])->name('inicia-sesion');       //Ruta cuando uno inicia sesión
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('principal');
 Route::post('/filtro/{universidad}', [DashboardController::class, 'consultarXFiltro'])->middleware('auth')->name('filtro');

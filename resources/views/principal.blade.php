@@ -59,7 +59,10 @@
             </div>
         @endisset
     </div>
-@endsection
+
+    
+    
+</div>
 
 @section('javascript')
     <script src="{{ asset('js/sweetalert/sweetalert2.js') }}" charset="UTF-8"></script>
