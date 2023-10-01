@@ -14,7 +14,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $url = env("URL_API");
+        $response = Http::get($url . "/libros");
+        $data = $response->json();
+
+        return view("libro.libros", compact("data"));
     }
 
     /**
@@ -22,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view("registrarLibro");
+        return view("libro.registrarLibro");
     }
 
     /**
@@ -39,8 +43,8 @@ class BookController extends Controller
             'genre' => request('genre'),
             'editorial' => request('editorial'),
             'status' => 0,
-            'file' => 'prueba',
-            'bookCover' => 'prueba'
+            'file' => request('file'),
+            'bookCover' => request('bookCover')
         ]);
 
         $data = $response->json();
@@ -57,30 +61,64 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(String $id)
     {
-        //
+        $url = env("URL_API");
+        $response = Http::get($url . '/libros/' . $id);
+
+        $data = $response->json();
+        $libro = $data["data"];
+
+        if ($data["error"]) {
+            return redirect('/libros')->with('error', $data["message"]);
+        } else {
+            return view("libro.editarLibro", compact("libro"));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, String $id)
     {
-        //
+        $url = env("URL_API");
+        $response = Http::put($url . '/libros/' . $id, [
+            'language' => request('language'),
+            'title' => request('title'),
+            'genre' => request('genre'),
+            'editorial' => request('editorial'),
+            'status' => 0,
+            'file' => request('file'),
+            'bookCover' => request('bookCover')
+        ]);
+
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/libros')->with('error', $data["message"]);
+        } else {
+            return redirect('/libros')->with('success', $data["message"]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(String $id)
     {
-        //
+        $url = env("URL_API");
+        $response = Http::delete($url . '/libros/' . $id);
+        $data = $response->json();
+        if ($data["error"]) {
+            return redirect('/libros')->with('error', $data["message"]);
+        } else {
+            return redirect('/libros')->with('success', $data["message"]);
+        }
     }
 }

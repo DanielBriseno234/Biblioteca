@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UniversityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +26,19 @@ Route::post('/inicia-sesion', [ LoginController::class, 'login'])->name('inicia-
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout'); 
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('principal');
+Route::post('/filtro/{universidad}', [DashboardController::class, 'consultarXFiltro'])->middleware('auth')->name('filtro');
 
-Route::resource('/libros', BookController::class)->names([
-    'index' => 'libros.index', // Nombre para la ruta index
-    'create' => 'libros.create', // Nombre para la ruta create
-    'store' => 'libros.store', // Nombre para la ruta store
-    'show' => 'libros.show', // Nombre para la ruta show
-    'edit' => 'libros.edit', // Nombre para la ruta edit
-    'update' => 'libros.update', // Nombre para la ruta update
-    'destroy' => 'libros.destroy', // Nombre para la ruta destroy
+Route::resource('/libros', BookController::class)->middleware('auth')->names([
+    'index' => 'libro.index', // Nombre para la ruta index
+    'create' => 'libro.create', // Nombre para la ruta create
+    'store' => 'libro.store', // Nombre para la ruta store
+    'show' => 'libro.show', // Nombre para la ruta show
+    'edit' => 'libro.edit', // Nombre para la ruta edit
+    'update' => 'libro.update', // Nombre para la ruta update
+    'destroy' => 'libro.destroy', // Nombre para la ruta destroy
 ]);
 
-Route::resource('/administradores', AdministratorController::class)->names([
+Route::resource('/administradores', AdministratorController::class)->middleware('auth')->names([
     'index' => 'administrador.index', // Nombre para la ruta index
     'create' => 'administrador.create', // Nombre para la ruta create
     'store' => 'administrador.store', // Nombre para la ruta store
@@ -46,7 +48,7 @@ Route::resource('/administradores', AdministratorController::class)->names([
     'destroy' => 'administrador.destroy', // Nombre para la ruta destroy
 ]);
 
-Route::resource('/alumnos', StudentController::class)->names([
+Route::resource('/alumnos', StudentController::class)->middleware('auth')->names([
     'index' => 'alumno.index', // Nombre para la ruta index
     'create' => 'alumno.create', // Nombre para la ruta create
     'store' => 'alumno.store', // Nombre para la ruta store
@@ -54,4 +56,14 @@ Route::resource('/alumnos', StudentController::class)->names([
     'edit' => 'alumno.edit', // Nombre para la ruta edit
     'update' => 'alumno.update', // Nombre para la ruta update
     'destroy' => 'alumno.destroy', // Nombre para la ruta destroy
+]);
+
+Route::resource('/universidades', UniversityController::class)->names([
+    'index' => 'universidad.index', // Nombre para la ruta index
+    'create' => 'universidad.create', // Nombre para la ruta create
+    'store' => 'universidad.store', // Nombre para la ruta store
+    'show' => 'universidad.show', // Nombre para la ruta show
+    'edit' => 'universidad.edit', // Nombre para la ruta edit
+    'update' => 'universidad.update', // Nombre para la ruta update
+    'destroy' => 'universidad.destroy', // Nombre para la ruta destroy
 ]);

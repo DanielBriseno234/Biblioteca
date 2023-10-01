@@ -23,7 +23,7 @@
             </div>
             <div class="mb-2">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password" name="password">
             </div>
             <button type="submit" class="btn btn-primary">Agregar</button>
         </form>

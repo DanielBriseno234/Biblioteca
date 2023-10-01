@@ -20,7 +20,7 @@ class ApiAdministratorsController extends Controller
     public function index()
     {
         try {
-            $admin = Administrator::with('user')->get();
+            $admin = Administrator::with('user.university')->get();
             return ApiResponse::success("Administradores consultados con exito", 200, $admin);
             // throw new Exception("Error");
         } catch (Exception $e) {
@@ -38,7 +38,9 @@ class ApiAdministratorsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => Hash::make($request->password)
+                "password" => Hash::make($request->password),
+                "typeUser" => $request->typeUser,
+                'university_id' => $request->university_id
             ];
 
             $datosAdmin = [
@@ -71,7 +73,7 @@ class ApiAdministratorsController extends Controller
     public function show(string $id)
     {
         try {
-            $admin = Administrator::with('user')->findOrFail($id);
+            $admin = Administrator::with('user.university')->findOrFail($id);
             return ApiResponse::success("Administrador consultado exitosamente", 200, $admin);
             // throw new Exception("Error");
         } catch (ModelNotFoundException $e) {
@@ -106,7 +108,7 @@ class ApiAdministratorsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => $request->password
+                // "password" => $request->password
             ];
 
             $datosAdmin = [

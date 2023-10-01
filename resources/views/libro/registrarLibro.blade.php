@@ -1,18 +1,24 @@
 @extends('plantillas/plantillaGral')
 
 @section('contenido')
-<br>
+    <br>
     <div class="container bg-body-secondary rounded shadow">
-        <form action="{{route('libros.store')}}" method="post" url="upload" files="true" enctype="multipart/form-data">
+        <form action="{{ route('libro.store') }}" method="post" url="upload" files="true" enctype="multipart/form-data">
             @csrf
             <h1 style="text-align: center">Registra un nuevo libro</h1>
             <div>
-                <label for="formFileLg" class="form-label">Archivo de libro en pdf</label>
-                <input class="form-control form-control-lg" id="formFileLg" name="file" type="file">
+                <label for="inputPdf" class="form-label">Archivo de libro en pdf</label>
+                <input class="form-control form-control-lg" id="inputPdf" type="file"
+                    onchange="convertirPDFaBS64();">
             </div>
             <div>
-                <label for="formFileLg" class="form-label">Portada de libro</label>
-                <input class="form-control form-control-lg" id="formFileLg" name="bookCover" type="file">
+                <label for="inputImage" class="form-label">Portada de libro</label>
+                <input class="form-control form-control-lg" id="inputImagen" onchange="convertirImagenaBase64();"
+                     type="file">
+            </div>
+            <div class="d-none">
+                <input type="text" name="file" id="file">
+                <input type="text" name="bookCover" id="bookCover">
             </div>
             <br>
             <div>
@@ -35,4 +41,11 @@
         </form>
         {{-- <a href="{{ route('libros.destroy', ["id" => 1]) }}">Eliminar libro</a> --}}
     </div><br>
+    <input id="inputFile" type="file" onchange="convertirPDFaBS64();" />
+@endsection
+
+@section('javascript')
+    <script src="js/sweetalert/sweetalert2.js" charset="UTF-8"></script>
+    <script src="js/jquery/jquery-3.7.0.js"></script>
+    <script src="../js/utilidades.js"></script>
 @endsection

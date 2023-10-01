@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\University;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -11,17 +13,51 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function obtenerUrlApiPropia()
+    {
+        $sel =  University::findOrFail(Auth::user()->university_id);
+
+        $url = $sel->protocol . "://" . $sel->ip . ($sel->port != "" ? (":" . $sel->port) : "") . "/" . $sel->prefix;
+        
+        return $url;
+    }
+
+    public function obtenerUrlApiDemas($id){
+        $sel =  University::findOrFail($id);
+        $url = $sel->protocol . "://" . $sel->ip . ($sel->port != "" ? (":" . $sel->port) : "") . "/" . $sel->prefix . "/" . $sel->endpoint;
+        return $url;
+    }
+
     public function index()
     {
-        if(Auth::check()){
-            $url = env("URL_API");
-            $response = Http::get($url."/libros");
-            $data = $response->json();
+        if (Auth::check()) {
+            if (Auth::user()->typeUser == "Admin") {
+                $response = Http::get($this->obtenerUrlApiPropia() . "/libros");
+                $data = $response->json();
 
-            return view("principal", compact("data"));
-        }else{
+                return view("principal", compact("data"));
+            } else {
+                $urlPropia = env("URL_API");
+                $responseUniversities = Http::get($this->obtenerUrlApiPropia() . "/universidades");
+                $dataUniversidades = $responseUniversities->json();
+                return view("principal", compact("dataUniversidades"));
+            }
+        } else {
             return view("login");
         }
+    }
+
+    public function consultarXFiltro(String $id)
+    {
+        $response = Http::get($this->obtenerUrlApiDemas($id));
+        $data = $response->json();
+
+        $response2 = Http::get($this->obtenerUrlApiPropia() . "/universidades");
+        $dataUniversidades = $response2->json();
+
+        $filtroId = $id;
+
+        return view("principal", compact("dataUniversidades", "data", "filtroId"));
     }
 
     /**

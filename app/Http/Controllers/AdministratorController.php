@@ -20,7 +20,7 @@ class AdministratorController extends Controller
         $response = Http::get($url . "/administradores");
         $data = $response->json();
 
-        return view("administradores", compact("data"));
+        return view("administrador.administradores", compact("data"));
     }
 
     /**
@@ -28,7 +28,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        return view("registrarAdmin");
+        return view("administrador.registrarAdministrador");
     }
 
     /**
@@ -38,11 +38,13 @@ class AdministratorController extends Controller
     {
         $url = env("URL_API");
         $response = Http::post($url . "/administradores", [
-            'email' => $request->name,
+            'email' => $request->email,
             'password' => $request->password,
             'name' => $request->name,
             'paternalSurname' => $request->paternalSurname,
             'maternalSurname' => $request->maternalSurname,
+            "typeUser" => "Admin",
+            'university_id' => 1
         ]);
 
         $data = $response->json();
@@ -67,7 +69,7 @@ class AdministratorController extends Controller
         if ($data["error"]) {
             return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return view("administradores", compact("administrador"));
+            return view("administrador.administradores", compact("administrador"));
         }
     }
 
@@ -85,7 +87,7 @@ class AdministratorController extends Controller
         if ($data["error"]) {
             return redirect('/administradores')->with('error', $data["message"]);
         } else {
-            return view("editarAdministrador", compact("admin"));
+            return view("administrador.editarAdministrador", compact("admin"));
         }
     }
 
@@ -96,8 +98,8 @@ class AdministratorController extends Controller
     {
         $url = env("URL_API");
         $response = Http::put($url . '/administradores/' . $id, [
-            'email' => $request->name,
-            'password' => $request->password,
+            'email' => $request->email,
+            // 'password' => $request->password,
             'name' => $request->name,
             'paternalSurname' => $request->paternalSurname,
             'maternalSurname' => $request->maternalSurname,
@@ -105,7 +107,7 @@ class AdministratorController extends Controller
 
         $data = $response->json();
 
-        dd($data);
+        // dd($data);
 
         if ($data["error"]) {
             return redirect('/administradores')->with('error', $data["message"]);
