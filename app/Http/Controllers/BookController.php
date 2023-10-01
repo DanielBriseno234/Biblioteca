@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Spatie\FlareClient\Http\Response;
 
 class BookController extends Controller
 {
+    private $url = env("URL_API");
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        //Vista :Y
     }
 
     /**
@@ -20,7 +24,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+
+        // Form para crear
     }
 
     /**
@@ -28,15 +33,37 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'language' => ['required', 'string'],
+                'title' => ['required', 'string'],
+                'genre' => ['required', 'string'],
+                'editorial' => ['required', 'string'],
+                'file' => ['required', 'string'],
+            ],
+        );
+
+        $data = [
+        'language'=>$request->language,
+        'title'=>$request->title,
+        'genre'=>$request->genre,
+        'editorial'=>$request->editorial,
+        'file'=>$request->file
+        ];
+
+        $response = Http::post($this->url . "/libros",$data);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(String $id)
     {
-        //
+        $response = Http::get($this->url . "/libros",[ 'id' => $id ]);
+
+        $data = $response->json();
+
+        dd($data);
     }
 
     /**
@@ -44,22 +71,40 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        //Vista :3
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, String $id)//Cambie Book por un String para solo recibir el id :)
     {
-        //
+        $request->validate(
+            [
+                'language' => ['required', 'string'],
+                'title' => ['required', 'string'],
+                'genre' => ['required', 'string'],
+                'editorial' => ['required', 'string'],
+                'file' => ['required', 'string'],
+            ],
+        );
+
+        $data = [
+            'language'=>$request->language,
+            'title'=>$request->title,
+            'genre'=>$request->genre,
+            'editorial'=>$request->editorial,
+            'file'=>$request->file
+            ];
+
+        $response = Http::put($this->url . "/libros".$id, $data);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(String $id)
     {
-        //
+
     }
 }
