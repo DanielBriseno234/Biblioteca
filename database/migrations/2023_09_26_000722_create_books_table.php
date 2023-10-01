@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("editorial", 255);
             $table->integer("status");
             $table->longText("file");
+            $table->longText("bookCover");
             $table->timestamps();
         });
     }

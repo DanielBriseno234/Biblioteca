@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Http\Responses\ApiResponse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class ApiStudentsController extends Controller
@@ -105,7 +106,7 @@ class ApiStudentsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => $request->password
+                "password" => Hash::make($request->password)
             ];
 
             $datosAlumno = [

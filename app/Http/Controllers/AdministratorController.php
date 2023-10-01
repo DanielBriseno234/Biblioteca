@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use Illuminate\Http\Request;
 
-use App\Models\Administrator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;        //Extension para encriptar la contraseña
 use Illuminate\Support\Facades\Auth;        //Extension para la autenticacio
-use RealRashid\SweetAlert\Facades\Alert;    //Extension de las alertas utilizadas
 use Illuminate\Validation\ValidationException;
-
 
 class AdministratorController extends Controller
 {
@@ -24,7 +22,7 @@ class AdministratorController extends Controller
         $response = Http::get($url . "/administradores");
         $data = $response->json();
 
-        dd($data);
+        return view("administradores", compact("data"));
     }
 
     /**
@@ -32,7 +30,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        //
+        return view("registrarAdmin");
     }
 
     /**
@@ -41,43 +39,96 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         $url = env("URL_API");
-
         $response = Http::post($url . "/administradores", [
-            'name' => 'Steve',
-            'role' => 'Network Administrator',
+            'email' => $request->name,
+            'password' => $request->password,
+            'name' => $request->name,
+            'paternalSurname' => $request->paternalSurname,
+            'maternalSurname' => $request->maternalSurname,
         ]);
+
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/administradores')->with('error', $data["message"]);
+        } else {
+            return redirect('/administradores')->with('success', $data["message"]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Administrator $administrators)
+    public function show(string $id)
     {
         $url = env("URL_API");
+        $response = Http::get($url . '/administradores/' . $id);
+        $data = $response->json();
+        $administrador = $data["data"];
+
+        if ($data["error"]) {
+            return redirect('/administradores')->with('error', $data["message"]);
+        } else {
+            return view("administradores", compact("administrador"));
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Administrator $administrators)
+    public function edit(string $id)
     {
-        //
+        $url = env("URL_API");
+        $response = Http::get($url . '/administradores/' . $id);
+
+        $data = $response->json();
+        $admin = $data["data"];
+
+        if ($data["error"]) {
+            return redirect('/administradores')->with('error', $data["message"]);
+        } else {
+            return view("editarAdministrador", compact("admin"));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Administrator $administrators)
+    public function update(Request $request, string $id)
     {
         $url = env("URL_API");
+        $response = Http::put($url . '/administradores/' . $id, [
+            'email' => $request->name,
+            'password' => $request->password,
+            'name' => $request->name,
+            'paternalSurname' => $request->paternalSurname,
+            'maternalSurname' => $request->maternalSurname,
+        ]);
+
+        $data = $response->json();
+
+        dd($data);
+
+        if ($data["error"]) {
+            return redirect('/administradores')->with('error', $data["message"]);
+        } else {
+            return redirect('/administradores')->with('success', $data["message"]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Administrator $administrators)
+    public function destroy(string $id)
     {
         $url = env("URL_API");
+        $response = Http::delete($url . '/administradores/' . $id);
+        $data = $response->json();
+        if ($data["error"]) {
+            return redirect('/administradores')->with('error', $data["message"]);
+        } else {
+            return redirect('/administradores')->with('success', $data["message"]);
+        }
     }
 
     public function register(Request $request){
@@ -93,20 +144,20 @@ class AdministratorController extends Controller
             'paternalSurname.required' => 'Introduzca su apellido paterno.',
             'maternalSurname.required' => 'Introduzca su apellido materno.',
         ]);
-    
-        
+
+
             // Crear un nuevo estudiante
             $admin = new Administrator();
             $admin->name = $request->name;
             $admin->paternalSurname = $request->paternalSurname;
             $admin->maternalSurname = $request->maternalSurname;
-    
+
             // Asignar el ID del usuario actual
-    
+
             $admin->save(); // Guardar el estudiante
-    
+
             return redirect(route('welcome'));  // Redireccionar a la página principal
-        
+
     }
 
     public function login(Request $request){

@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\PerfilController; //Extension del controlador que se utiliza
-use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\StudentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,27 +19,39 @@ use App\Http\Controllers\MessagesController;
 |
 */
 
-Route::view('/', 'welcome')->name('welcome');
 
-Route::resource("/administradores", AdministratorController::class);
-Route::view('/login', "login")->name('login');          //Ruta a la pagina de login
-Route::view('/registro', "register")->name('registro'); //Ruta a la pagina de registro
-Route::view('/registroadmin', "registeradmin")->name('registroadm'); //Ruta a la pagina de registro
-// //Route::view('/principal', "principal")->middleware('auth')->name('principal');     //Ruta a la pagina principal
-// Route::view('/detalles', "detalles_pelicula")->middleware('auth')->name('detalles-pelicula');     //Ruta a la pagina de detalles
-// Route::get('/principal', [MoviesController::class, 'index'])->middleware('auth')->name('principal');
-// Route::get('/principal/{movie}',[MoviesController::class, 'show'])->middleware('auth')->name('principal.show');
-// Route::view('/perfil', "perfil")->name('perfil')->middleware('auth');  //Ruta a la pagina de perfil
-//                                                                             //El metodo middleware sirve para proteger
-//                                                                             //la página, ya que para ingresar a ella
-//                                                                             //valida si esta una sesión activa, sino hay
-//                                                                             //una activa lo redirecciona al login
+Route::get('/login', [LoginController::class, "index"])->name('login');          //Ruta a la pagina de login
+Route::post('/inicia-sesion', [ LoginController::class, 'login'])->name('inicia-sesion');       //Ruta cuando uno inicia sesión
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Route::post('/validar-registro', [ AdministratorController::class, 'register'])->name('validar-registro'); //Ruta para validar los datos ingresados
-// Route::post('/inicia-sesion', [ AdministratorController::class, 'login'])->name('inicia-sesion');       //Ruta cuando uno inicia sesión
-// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');      //Ruta cuando uno presiona el cerrar sesion
-// Route::post('/contacto',[MessagesController::class, 'store']); //Ruta de la funcion de contacto.
-// Route::POST('/perfil/cambiarImagen', [ PerfilController::class, 'store' ])->name('cambiar-imagen');  //Ruta cuando se presiona el cambiar imagen
-// Route::POST('/perfil/cambiarDatos', [ PerfilController::class, 'update' ])->name('modificar-datos');    //Ruta cuando se envia el formulario de modificar perfil
-// Route::POST('/perfil/cambiarContrasena', [ PerfilController::class, 'cambiarContrasena' ])->name('cambiar-contrasena'); //Ruta cuando se envia el formulario de
-//                                                                                                                         //cambio de contraseña
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('principal');
+
+Route::resource('/libros', BookController::class)->names([
+    'index' => 'libros.index', // Nombre para la ruta index
+    'create' => 'libros.create', // Nombre para la ruta create
+    'store' => 'libros.store', // Nombre para la ruta store
+    'show' => 'libros.show', // Nombre para la ruta show
+    'edit' => 'libros.edit', // Nombre para la ruta edit
+    'update' => 'libros.update', // Nombre para la ruta update
+    'destroy' => 'libros.destroy', // Nombre para la ruta destroy
+]);
+
+Route::resource('/administradores', AdministratorController::class)->names([
+    'index' => 'administrador.index', // Nombre para la ruta index
+    'create' => 'administrador.create', // Nombre para la ruta create
+    'store' => 'administrador.store', // Nombre para la ruta store
+    'show' => 'administrador.show', // Nombre para la ruta show
+    'edit' => 'administrador.edit', // Nombre para la ruta edit
+    'update' => 'administrador.update', // Nombre para la ruta update
+    'destroy' => 'administrador.destroy', // Nombre para la ruta destroy
+]);
+
+Route::resource('/alumnos', StudentController::class)->names([
+    'index' => 'alumno.index', // Nombre para la ruta index
+    'create' => 'alumno.create', // Nombre para la ruta create
+    'store' => 'alumno.store', // Nombre para la ruta store
+    'show' => 'alumno.show', // Nombre para la ruta show
+    'edit' => 'alumno.edit', // Nombre para la ruta edit
+    'update' => 'alumno.update', // Nombre para la ruta update
+    'destroy' => 'alumno.destroy', // Nombre para la ruta destroy
+]);

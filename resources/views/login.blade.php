@@ -33,13 +33,13 @@
                   <!-- Espacio para ingresar el name -->
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      <i class="material-icons">mail</i>
+                      <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="name" id="name" class="form-control" placeholder="nombre..." name="name" aria-describedby="nameHelp" value="{{ old('name') }}">
+                  <input type="email" id="email" class="form-control" placeholder="Email..." name="email" aria-describedby="nameHelp" value="{{ old('name') }}">
                 </div>
                 <!-- Captura de error -->
-                  {!! $errors->first('name','<small class="error ms-5">:message</small>') !!}
+                  {!! $errors->first('email','<small class="error ms-5">:message</small>') !!}
                 </div>
                 <div>
                 <div class="input-group">
@@ -49,10 +49,10 @@
                       <i class="material-icons">lock_outline</i>
                     </span>
                   </div>
-                  <input type="paternalSurname" class="form-control" placeholder="Apellido Paterno..."  name="paternalSurname">
+                  <input type="password" class="form-control" placeholder="Contraseña..."  name="password">
                 </div>
                 <!-- Captura de error -->
-                  {!! $errors->first('paternalSurname','<small class="error ms-5">:message</small>') !!}
+                  {!! $errors->first('password','<small class="error ms-5">:message</small>') !!}
                 </div>
                 <div class="input-group justify-content-center">
                     <div class="input-group-prepend">
@@ -60,7 +60,7 @@
                             <input type="checkbox" class="form-check-input" id="rememberCheck">
                         </span>
                       </div>
-                    
+
                     <label class="form-check-label" name="remember" for="rememberCheck">Mantener la sesion iniciada?</label>
                 </div>
 
@@ -69,15 +69,13 @@
                 <!-- Boton para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-link btn-wd btn-lg">Iniciar Sesión</button>
                 <!-- Si el usuario no tiene cuenta este espacio lo redireccionara para registrarse -->
-                <p>¿Aún no tienes cuenta? <a href="{{ route('registroadm') }}">Registrate</a></p>
-                <a href="{{ route('welcome') }}"><p>Regresar a la página principal</p></a>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    
+
   </div>
 @endsection
 

@@ -1,38 +1,40 @@
 @extends('plantillas/plantillaGral')
 
-@section('title', 'Página principal')
-
 @section('contenido')
-    <link rel="stylesheet" href="css/principal.css">
+<br>
+<div class="container text-center">
 
-    <div class="">
-        <h2 class="mt-3 mb-4 text-center">Populares</h2>
+    <div class="row">
 
-        @if (session('alert_error'))
-            <div class="alert alert-error">
-                {{ session('alert') }}
+        {{-- <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon1">Buscar</button>
+            <input type="text" class="form-control" placeholder="Libros locales" aria-label="..." aria-describedby="button-addon1">
+        </div> --}}
+
+        @foreach ($data["data"] as $libro)
+            <div class="col">
+                <div class="container">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <img src="" alt="libro no encontrado" class="card-img-top">
+                            <h5 class="card-title">
+                                {{ $libro["title"] }}
+                            </h5>
+                            <p class="card-text">
+                                Género: {{ $libro["genre"] }}
+                            </p>
+                            <p class="card-text">
+                                Editorial: {{$libro["editorial"]}}
+                            </p>
+                            <a href="#" class="btn btn-success">Descargar libro</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        @endif
-
-        <div class="movieGrid">
-            @foreach ($popularMovies as $movie)
-                <div class="mb-3">
-                    <x-movie-card :movie="$movie" />
-                </div>
-            @endforeach
-
-        </div>
-
-        <h2 class="mt-3 mb-4 text-center">Mejor calificadas</h2>
-        <div class="movieGrid">
-            @foreach ($topMovies as $movie)
-                <div class="mb-3">
-                    <x-movie-card :movie="$movie" />
-                </div>
-            @endforeach 
-        </div>
+        @endforeach
     </div>
 
-    @include('components.footer')
 
+
+</div>
 @endsection

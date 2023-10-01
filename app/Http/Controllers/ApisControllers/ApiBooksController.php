@@ -34,6 +34,7 @@ class ApiBooksController extends Controller
                 'genre' => ['required', 'string'],
                 'editorial' => ['required', 'string'],
                 'file' => ['required', 'string'],
+                'bookCover' => ['required', 'string']
             ],
             // [
             //     'languaje.required' => 'El nombre es obligatorio.',
@@ -49,7 +50,10 @@ class ApiBooksController extends Controller
             $libro->genre = $request->genre;
             $libro->editorial = $request->editorial;
             $libro->status = 0;
-            $libro->file = $request->file;
+            // $libro->file = $request->file;
+            // $libro->bookCover = $request->bookCover;
+            $libro->file = "Prueba";
+            $libro->bookCover = "Prueba";
             $libro->save();
 
             return ApiResponse::success("Libro registrado exitosamente", 200, $libro);
@@ -86,6 +90,7 @@ class ApiBooksController extends Controller
                 'genre' => ['required', 'string'],
                 'editorial' => ['required', 'string'],
                 'file' => ['required', 'string'],
+                'bookCover' => ['required', 'string']
             ],
             // [
             //     'languaje.required' => 'El nombre es obligatorio.',

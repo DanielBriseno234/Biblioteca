@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
-use Spatie\FlareClient\Http\Response;
 
 class BookController extends Controller
 {
@@ -24,8 +24,7 @@ class BookController extends Controller
      */
     public function create()
     {
-
-        // Form para crear
+        return view("registrarLibro");
     }
 
     /**
@@ -33,25 +32,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'language' => ['required', 'string'],
-                'title' => ['required', 'string'],
-                'genre' => ['required', 'string'],
-                'editorial' => ['required', 'string'],
-                'file' => ['required', 'string'],
-            ],
-        );
+        // dd($request);
+        $url = env("URL_API");
 
-        $data = [
-        'language'=>$request->language,
-        'title'=>$request->title,
-        'genre'=>$request->genre,
-        'editorial'=>$request->editorial,
-        'file'=>$request->file
-        ];
+        $response = Http::post($url .'/libros', [
+            'language' => request('language'),
+            'title' => request('title'),
+            'genre' => request('genre'),
+            'editorial' => request('editorial'),
+            'status' => 0,
+            'file' => 'prueba',
+            'bookCover' => 'prueba'
+        ]);
 
-        $response = Http::post($this->url . "/libros",$data);
+        $data = $response->json();
+
+        if ($data["error"]) {
+            return redirect('/')->with('error', $data["message"]);
+        } else {
+            return redirect('/')->with('success', $data["message"]);
+        }
     }
 
     /**

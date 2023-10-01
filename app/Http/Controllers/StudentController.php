@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;        //Extension para encriptar la contraseña
 use Illuminate\Support\Facades\Auth;        //Extension para la autenticacion
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
 
 class StudentController extends Controller
 {
@@ -17,7 +18,12 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $url = env("URL_API");
+        $response = Http::get($url . "/alumnos");
+
+        $data = $response->json();
+
+        return view("", compact("data"));
     }
 
     /**
@@ -25,7 +31,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view("");
     }
 
     /**
@@ -33,8 +39,25 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        
+        request()->validate([
+            'enrollment' => 'required|min:8|max:20',
+            'name' => 'required',
+            'paternalSurname' => 'required',
+            'maternalSurname' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ],
+        [
+            // Mensajes de validación
+            'enrollment.required' => 'Introduzca su contraseña.',
+            'enrollment.max' => 'Debe contener menos de 20 caracteres.',
+            'enrollment.min' => 'Debe contener mínimo 8 caracteres.',
+            'name.required' => 'Introduzca su Nombre.',
+            'paternalSurname.required' => 'Introduzca su apellido paterno.',
+            'maternalSurname.required' => 'Introduzca su apellido materno.',
+            'email.required' => 'Introduzca un email',
+            'password.required' => "Introduzca una contraseña"
+        ]);
     }
 
     /**
@@ -87,7 +110,7 @@ class StudentController extends Controller
             'paternalSurname.required' => 'Introduzca su apellido paterno.',
             'maternalSurname.required' => 'Introduzca su apellido materno.',
         ]);
-    
+
         if (Auth::check()) {
             // Crear un nuevo estudiante
             $student = new Student();
@@ -95,12 +118,12 @@ class StudentController extends Controller
             $student->name = $request->name;
             $student->paternalSurname = $request->paternalSurname;
             $student->maternalSurname = $request->maternalSurname;
-    
+
             // Asignar el ID del usuario actual
             $student->user_id = Auth::user()->id;
-    
+
             $student->save(); // Guardar el estudiante
-    
+
             return redirect(route('principal'));  // Redireccionar a la página principal
         } else {
             // Manejo de errores, por ejemplo, redirigir a la página de inicio de sesión

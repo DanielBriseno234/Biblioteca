@@ -19,5 +19,6 @@ class Book extends Model
         'editorial',
         'status',
         'file',
+        'bookCover'
     ];
 }
