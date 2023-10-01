@@ -37,7 +37,9 @@ class ApiStudentsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => $request->password
+                "password" => $request->password,
+                "typeUser" => $request->typeUser,
+                'university_id' => $request->university_id
             ];
 
             $datosAlumno = [
@@ -106,7 +108,7 @@ class ApiStudentsController extends Controller
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
-                "password" => Hash::make($request->password)
+                // "password" => Hash::make($request->password)
             ];
 
             $datosAlumno = [

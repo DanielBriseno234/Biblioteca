@@ -23,6 +23,8 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'typeUser',
+        'university_id'
     ];
 
     public function student(): HasOne
@@ -33,6 +35,10 @@ class User extends Authenticatable
     public function administrator(): HasOne
     {
         return $this->hasOne(Administrator::class);
+    }
+
+    public function university(){
+        return $this->belongsTo(University::class);
     }
 
     /**

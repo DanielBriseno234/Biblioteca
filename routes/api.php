@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApisControllers\ApiBooksController;
 use App\Http\Controllers\ApisControllers\ApiStudentsController;
+use App\Http\Controllers\ApisControllers\ApiUniversitiesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ use App\Http\Controllers\ApisControllers\ApiStudentsController;
 Route::resource("libros", ApiBooksController::class);
 Route::resource("administradores", ApiAdministratorsController::class);
 Route::resource("alumnos", ApiStudentsController::class);
+Route::resource("universidades", ApiUniversitiesController::class);

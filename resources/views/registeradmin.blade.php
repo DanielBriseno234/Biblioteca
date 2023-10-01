@@ -70,34 +70,6 @@
                         {!! $errors->first('maternalSurname','<small class="error">:message</small>') !!}
                     </div>
 
-                    <div>
-                      <div class="input-group marginInput">
-                          <div class="input-group-prepend">
-                            <!-- Campo para ingresar el apellido materno -->
-                              <span class="input-group-text">
-                                  <i class="material-icons">blur_on</i>
-                              </span>
-                          </div>
-                          <input type="text" class="form-control" id="email" placeholder="Email..." name="email" aria-describedby="emailHelp" value="{{ old('maternalSurname') }}">
-                      </div>
-                      <!-- Captura de error -->
-                      {!! $errors->first('email','<small class="error">:message</small>') !!}
-                  </div>
-
-                  <div>
-                    <div class="input-group marginInput">
-                        <div class="input-group-prepend">
-                          <!-- Campo para ingresar el apellido materno -->
-                            <span class="input-group-text">
-                                <i class="material-icons">blur_on</i>
-                            </span>
-                        </div>
-                        <input type="password" class="form-control" id="password" placeholder="contraseña..." name="password" aria-describedby="emailHelp" value="{{ old('maternalSurname') }}">
-                    </div>
-                    <!-- Captura de error -->
-                    {!! $errors->first('password','<small class="error">:message</small>') !!}
-                </div>
-
                     
 
                   </div>

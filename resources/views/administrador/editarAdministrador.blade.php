@@ -12,7 +12,7 @@
             </div>
             <div class="mb-2">
                 <label for="paternalSurname" class="form-label">Apellido Paterno</label>
-                <input type="text" class="form-control" id="paternalSurname" name="paternalSurname" value="{{$admin['paternalSurname']}}"
+                <input type="text" class="form-control" id="paternalSurname" name="paternalSurname" value="{{$admin['paternalSurname']}}">
             </div>
             <div class="mb-2">
                 <label for="maternalSurname" class="form-label">Apellido Materno</label>
