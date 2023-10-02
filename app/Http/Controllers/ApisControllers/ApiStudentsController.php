@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Http\Responses\ApiResponse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -34,6 +35,7 @@ class ApiStudentsController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
@@ -58,6 +60,8 @@ class ApiStudentsController extends Controller
 
             $usuario->save();
             $alumno->save();
+
+            DB::commit();
 
             return ApiResponse::success("Alumno registrado con exito", 200, $usuario);
         } catch (ValidationException $e) {
@@ -104,7 +108,7 @@ class ApiStudentsController extends Controller
         // );
 
         try {
-
+            DB::beginTransaction();
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
@@ -122,6 +126,8 @@ class ApiStudentsController extends Controller
             $alumno->update($datosAlumno);
             $user = $alumno->user;
             $user->update($datosUsuario);
+
+            DB::commit();
 
             return ApiResponse::success("Alumno modificado exitosamente", 200, $alumno);
             // throw new Exception("Error");

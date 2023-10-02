@@ -92,7 +92,7 @@ class ApiUniversitiesController extends Controller
                 'protocol' => ['required', 'string'],
                 'ip' => ['required', 'string'],
                 'prefix' => ['required', 'string'],
-                'endponit' => ['required', 'string'],
+                'endpoint' => ['required', 'string'],
             ], [
                 'name.required' => 'El nombre es obligatorio.',
                 'protocol.required' => 'El protocolo es obligatoria.',

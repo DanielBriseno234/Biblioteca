@@ -18,7 +18,6 @@ class AdministratorController extends Controller
     public function index()
     {
         $url = env("URL_API");
-
         $response = Http::get($url . "/administradores");
         $data = $response->json();
 

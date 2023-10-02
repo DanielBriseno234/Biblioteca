@@ -41,7 +41,6 @@
         </form>
         {{-- <a href="{{ route('libros.destroy', ["id" => 1]) }}">Eliminar libro</a> --}}
     </div><br>
-    <input id="inputFile" type="file" onchange="convertirPDFaBS64();" />
 @endsection
 
 @section('javascript')
