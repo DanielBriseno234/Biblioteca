@@ -69,39 +69,23 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </ul>
-                  </li>
-                </ul>
-              </div>
-              <!-- Link de navegación para página de contacto -->
-              {{-- <li class="nav-item">
-                <a class="nav-link text-white p-3 enlace" href="{{ route('contacto') }}">Contacto</a>
-              </li> --}}
-              <!-- Link de navegación para página de favoritos -->
-              {{-- <li class="nav-item">
-                <a class="nav-link text-white p-3 enlace" href="{{ route('favoritos.index') }}">Favoritos</a>
-              </li> --}}
-            </ul>
-            <!-- Formulario para busqueda de películas -->
-            @php
-            @endphp
-            <div class="search d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
-                <livewire:search-dropdown>
-            </div>
-            <!-- Boton desplegable para opciones correspondientes a modificacion de perfil -->
-            <div class="dropdown d-flex justify-content-end mt-1">
-              <div class="d-flex p-3 enlace align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{-- <a class=" imgPerfil">
-                  <img src="../{{ Auth::user()->imagen }}" class="p"  alt=""
-                    loading="lazy" />
-                </a> --}}
-                <div class="ms-2">
-                  {{Auth::user()->nombre}} {{Auth::user()->apPaterno}} 
-                  Sesión
-                </div>
-              </div>
-                <!-- Links para páginas de modificación de perfil -->
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                  {{-- <li><a class="dropdown-item" href="{{ route('perfil') }}">Mi perfil</a></li>
+                @endif
+                {{-- <div
+                    class="search d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+                    <livewire:search-dropdown>
+                </div> --}}
+                <!-- Boton desplegable para opciones correspondientes a modificacion de perfil -->
+                <div class="dropdown mt-1">
+                    <div class="d-flex p-3 enlace align-items-center" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="ms-2">
+                            {{ Auth::user()->nombre }} {{ Auth::user()->apPaterno }}
+                            Sesión
+                        </div>
+                    </div>
+                    <!-- Links para páginas de modificación de perfil -->
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        {{-- <li><a class="dropdown-item" href="{{ route('perfil') }}">Mi perfil</a></li>
                   <li><a class="dropdown-item" href="{{ route('historial.index') }}">Historial</a></li> --}}
                         <li><a class="dropdown-item" href="{{ route('logout') }}">Cerrar Sesión</a></li>
                     </ul>

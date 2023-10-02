@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Http\Responses\ApiResponse;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -35,6 +36,7 @@ class ApiAdministratorsController extends Controller
     {
 
         try {
+            DB::beginTransaction();
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
@@ -58,6 +60,8 @@ class ApiAdministratorsController extends Controller
 
             $usuario->save();
             $admin->save();
+
+            DB::commit();
 
             return ApiResponse::success("Administrador registrado con exito", 200, $usuario);
         } catch (ValidationException $e) {
@@ -104,7 +108,7 @@ class ApiAdministratorsController extends Controller
         // );
 
         try {
-
+            DB::beginTransaction();
             // Obtener los datos del formulario
             $datosUsuario = [
                 'email' => $request->email,
@@ -121,6 +125,8 @@ class ApiAdministratorsController extends Controller
             $admin->update($datosAdmin);
             $user = $admin->user;
             $user->update($datosUsuario);
+
+            DB::commit();
 
             return ApiResponse::success("Administrador modificado exitosamente", 200, $admin);
             // throw new Exception("Error");

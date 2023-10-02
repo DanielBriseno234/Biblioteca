@@ -62,7 +62,7 @@ return [
     'providers' => [
         'admin' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Administrator::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [

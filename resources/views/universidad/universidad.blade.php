@@ -7,44 +7,60 @@
 @section('contenido')
     <div class="container">
         <h1 class="text-center mt-3">Gestión de Universidades</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Protocolo</th>
-                    <th scope="col">IP</th>
-                    <th scope="col">Puerto</th>
-                    <th scope="col">Prefijo</th>
-                    <th scope="col">Endpoint</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data['data'] as $universidad)
+        @if ($data['error'])
+            <div class="card text-center w-100">
+                <div class="card-header">
+                    Ocurrió un error
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ $data['message'] }}</h5>
+                    <p class="card-text">Vuelve a intentarlo, si el problema persiste contacte a soporte.</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <p>Estatus: {{ $data['status'] }}</p>
+                </div>
+            </div>
+        @else
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ $universidad['name'] }}</td>
-                        <td>{{ $universidad['protocol'] }}</td>
-                        <td>{{ $universidad['ip'] }}</td>
-                        <td>{{ $universidad['port'] }}</td>
-                        <td>{{ $universidad['prefix'] }}</td>
-                        <td>{{ $universidad['endpoint'] }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('universidad.edit', $universidad['id']) }}" class="btn btn-primary">Editar</a>
-                            @if (Auth::user()->university_id != $universidad['id'])
-                                <button type="button" class="btn btn-danger"
-                                    onclick="eliminar(event, {{ $universidad['id'] }})">Eliminar</button>
-                                <form action="{{ route('universidad.destroy', $universidad['id']) }}" method="post"
-                                    id="eliminar-{{ $universidad['id'] }}" style="display: none;">
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                            @endif
-                        </td>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Protocolo</th>
+                        <th scope="col">IP</th>
+                        <th scope="col">Puerto</th>
+                        <th scope="col">Prefijo</th>
+                        <th scope="col">Endpoint</th>
+                        <th scope="col">Acciones</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <a href="{{ route('universidad.create') }}" class="btn btn-success">Registrar Universidad</a>
+                </thead>
+                <tbody>
+                    @foreach ($data['data'] as $universidad)
+                        <tr>
+                            <td>{{ $universidad['name'] }}</td>
+                            <td>{{ $universidad['protocol'] }}</td>
+                            <td>{{ $universidad['ip'] }}</td>
+                            <td>{{ $universidad['port'] }}</td>
+                            <td>{{ $universidad['prefix'] }}</td>
+                            <td>{{ $universidad['endpoint'] }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('universidad.edit', $universidad['id']) }}"
+                                    class="btn btn-primary">Editar</a>
+                                @if (Auth::user()->university_id != $universidad['id'])
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="eliminar(event, {{ $universidad['id'] }})">Eliminar</button>
+                                    <form action="{{ route('universidad.destroy', $universidad['id']) }}" method="post"
+                                        id="eliminar-{{ $universidad['id'] }}" style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <a href="{{ route('universidad.create') }}" class="btn btn-success">Registrar Universidad</a>
+        @endif
     </div>
 @endsection
 
