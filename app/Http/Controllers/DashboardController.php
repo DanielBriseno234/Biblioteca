@@ -30,15 +30,16 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $url = env("URL_API");
         if (Auth::check()) {
             if (Auth::user()->typeUser == "Admin") {
-                $response = Http::get($this->obtenerUrlApiPropia() . "/libros");
+                $response = Http::get($url . "/libros");
                 $data = $response->json();
 
                 return view("principal", compact("data"));
             } else {
                 $urlPropia = env("URL_API");
-                $responseUniversities = Http::get($this->obtenerUrlApiPropia() . "/universidades");
+                $responseUniversities = Http::get($url . "/universidades");
                 $dataUniversidades = $responseUniversities->json();
                 return view("principal", compact("dataUniversidades"));
             }
@@ -49,10 +50,13 @@ class DashboardController extends Controller
 
     public function consultarXFiltro(String $id)
     {
-        $response = Http::get($this->obtenerUrlApiDemas($id));
+        $urlLibros = $this->obtenerUrlApiDemas($id);
+        
+        $response = Http::acceptJson()->get($urlLibros);
         $data = $response->json();
 
-        $response2 = Http::get($this->obtenerUrlApiPropia() . "/universidades");
+        $url = env("URL_API");
+        $response2 = Http::get($url . "/universidades");
         $dataUniversidades = $response2->json();
 
         $filtroId = $id;
