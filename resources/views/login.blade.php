@@ -27,15 +27,15 @@
               <div class="card-header card-header-primary text-center">
                 <h4 class="card-title">Login</h4>
               </div>
-              <div class="card-body">
+              <div class="card-body px-3">
                 <div>
                 <div class="input-group">
                   <!-- Espacio para ingresar el name -->
-                  <div class="input-group-prepend">
+                  {{-- <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="material-icons">lock_outline</i>
                     </span>
-                  </div>
+                  </div> --}}
                   <input type="email" id="email" class="form-control" placeholder="Email..." name="email" aria-describedby="nameHelp" value="{{ old('name') }}">
                 </div>
                 <!-- Captura de error -->
@@ -44,11 +44,11 @@
                 <div>
                 <div class="input-group">
                   <!-- Espacio para ingresar la contraseña -->
-                  <div class="input-group-prepend">
+                  {{-- <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="material-icons">lock_outline</i>
                     </span>
-                  </div>
+                  </div> --}}
                   <input type="password" class="form-control" placeholder="Contraseña..."  name="password">
                 </div>
                 <!-- Captura de error -->

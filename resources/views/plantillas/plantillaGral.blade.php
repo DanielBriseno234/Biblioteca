@@ -13,8 +13,7 @@
     <!-- Etiqueta para que puedan ingresar un titulo o se coloque uno por defecto -->
     <title>@yield('title', 'Biblioteca')</title>
     <!-- Referenciación de los archivos para los estilos -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="{{ asset('js/bootstrap5.3.0/bootstrap.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.3.0-web/css/all.css">
     <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
@@ -22,10 +21,7 @@
     @yield('estilos')
 
     {{-- @livewireStyles --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/bootstrap5.3.0/bootstrap.js') }} "></script>
 </head>
 
 <body>

@@ -13,7 +13,7 @@
     <title>@yield('title', 'D.J.L Technologies')</title>
     <!-- Referenciación de los archivos para los estilos -->
     <link rel="stylesheet" href="css/estilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="{{ asset('js/bootstrap5.3.0/bootstrap.css') }}" rel="stylesheet">
     <!-- Etiqueta para que puedan referenciar los archivos de estilos -->
     @yield('estilos')
 </head>
@@ -27,6 +27,6 @@
     </footer>
 
     <!-- Script principal -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/bootstrap5.3.0/bootstrap.js') }} "></script>
 </body>
 </html>

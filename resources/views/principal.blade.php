@@ -52,11 +52,15 @@
                                         </div>
                                         <div class="col-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">{{ $libro['title'] }}</h5>
-                                                <p class="card-text">Género: {{ $libro['genre'] }}</p>
-                                                <p class="card-text">Editorial: {{ $libro['editorial'] }}</p>
-                                                <button onclick="verDocumento('{{ $libro['file'] }}');"
-                                                    class="btn btn-outline-success">Descargar libro</button>
+                                                <div>
+                                                    <h6 class="card-title">{{ $libro['title'] }}</h6>
+                                                    <p class="card-text mb-0">Género: {{ $libro['genre'] }}</p>
+                                                    <small class="card-text">Editorial: {{ $libro['editorial'] }}</small>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <button onclick="verDocumento('{{ $libro['file'] }}');"
+                                                        class="btn btn-outline-success">Descargar libro</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
